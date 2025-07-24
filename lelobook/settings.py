@@ -27,8 +27,10 @@ load_dotenv()
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY ='django-insecure-3j1+9m7(fee7j03v@z)zw#dr90*)fel_6t5ec6(pr7^hcg%jrl'
+# Remplacez le SECRET_KEY par une variable d'environnement
+SECRET_KEY = config('SECRET_KEY', default='django-insecure-default-key-for-dev-only')
 
+# Configuration de sécurité pour la production
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -101,13 +103,15 @@ WSGI_APPLICATION = 'lelobook.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 
+
 DATABASES = {
-        'default': dj_database_url.config(
-            default=DATABASE_URL,
-            conn_max_age=600,
-            ssl_require=True
-        )
-    }
+    'default': dj_database_url.config(
+        default=config('DATABASE_URL'),
+        conn_max_age=600,
+        conn_health_checks=True,
+        ssl_require=True
+    )
+}
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',
