@@ -95,6 +95,9 @@ REST_FRAMEWORK = {
 }
 
 WSGI_APPLICATION = 'lelobook.wsgi.application'
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 
 # SECURE_CONTENT_TYPE_NOSNIFF = True
 # X_FRAME_OPTIONS = 'DENY'
@@ -105,15 +108,13 @@ WSGI_APPLICATION = 'lelobook.wsgi.application'
 
 
 DATABASES = {
-    'default': dj_database_url.config(
-        default=config('DATABASE_URL'),
+    'default': dj_database_url.parse(
+        config('DATABASE_URL'),  # Doit être défini dans les variables d'environnement
         conn_max_age=600,
         conn_health_checks=True,
-        ssl_require=True
+        ssl_require=True  # Important pour les connexions externes sécurisées
     )
 }
-
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
