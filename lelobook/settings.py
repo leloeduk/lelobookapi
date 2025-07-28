@@ -28,7 +28,7 @@ load_dotenv()
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # Remplacez le SECRET_KEY par une variable d'environnement
-SECRET_KEY = config('SECRET_KEY', default='django-insecure-default-key-for-dev-only')
+# SECRET_KEY = config('SECRET_KEY', default='django-insecure-default-key-for-dev-only')
 
 # Configuration de sécurité pour la production
 
@@ -112,12 +112,7 @@ DATABASES = {
         ssl_require=True
     )
 }
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
+
 
 
 # Password validation
