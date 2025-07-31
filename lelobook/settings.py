@@ -12,28 +12,30 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import os
-from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-DATABASE_URL = os.environ.get("DATABASE_URL")
-import dj_database_url
+
+
 from dotenv import load_dotenv
+
+# Load environment variables from .env file
 load_dotenv()
 
-
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = os.getenv('SECRET_KEY')
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # Remplacez le SECRET_KEY par une variable d'environnement
-# SECRET_KEY = config('SECRET_KEY', default='django-insecure-default-key-for-dev-only')
+
 
 # Configuration de sécurité pour la production
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
@@ -95,12 +97,7 @@ REST_FRAMEWORK = {
 }
 
 WSGI_APPLICATION = 'lelobook.wsgi.application'
-SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
 
-# SECURE_CONTENT_TYPE_NOSNIFF = True
-# X_FRAME_OPTIONS = 'DENY'
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
@@ -108,10 +105,18 @@ CSRF_COOKIE_SECURE = True
 
 
 DATABASES = {
-    'default': dj_database_url.config(
-        conn_max_age=600,
-        ssl_require=True  # Nécessaire pour Neon
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('DATABASE_NAME', 'neondb'),
+        'USER': os.getenv('DATABASE_USER', 'neondb_owner'),
+        'PASSWORD': os.getenv('DATABASE_PASSWORD', 'npg_ZmvuPXtyJF26'),
+        'HOST': os.getenv('DATABASE_HOST', 'ep-autumn-wildflower-adzctc4z-pooler.c-2.us-east-1.aws.neon.tech'),
+        'PORT': os.getenv('DATABASE_PORT', '5432'),
+        'OPTIONS': {
+            'sslmode': 'require',
+            'channel_binding': 'require',
+        },
+    }
 }
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -135,7 +140,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'fr-fr'
 
 TIME_ZONE = 'UTC'
 
