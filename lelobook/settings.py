@@ -35,7 +35,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # Configuration de sécurité pour la production
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
@@ -155,7 +155,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Pour la production
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),  # Pour le développement
+    os.path.join(BASE_DIR, 'static'),  
 ]
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 

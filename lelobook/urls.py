@@ -26,11 +26,11 @@ from lelobook import settings
 
 schema_view = get_schema_view(
     openapi.Info(
-        title="Your API",
+        title="LeloBookAPi",
         default_version='v1',
-        description="Description de votre API",
+        description="LeloBookApi est une api pour stocker les livres et documents pédagogiques",
         terms_of_service="https://www.google.com/policies/terms/",
-        contact=openapi.Contact(email="contact@your_api.local"),
+        contact=openapi.Contact(email="leloeduk2000@gmail.com"),
         license=openapi.License(name="BSD License"),
     ),
     public=True,
