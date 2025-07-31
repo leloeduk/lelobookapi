@@ -18,13 +18,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 
+import dj_database_url
 from dotenv import load_dotenv
 
 # Load environment variables from .env file
 load_dotenv()
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = os.getenv('SECRET_KEY', 'secret-insecure-for-dev-only')
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
@@ -103,20 +105,14 @@ WSGI_APPLICATION = 'lelobook.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 
+DATABASE_URL = os.getenv('DATABASE_URL')
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DATABASE_NAME', 'neondb'),
-        'USER': os.getenv('DATABASE_USER', 'neondb_owner'),
-        'PASSWORD': os.getenv('DATABASE_PASSWORD', 'npg_ZmvuPXtyJF26'),
-        'HOST': os.getenv('DATABASE_HOST', 'ep-autumn-wildflower-adzctc4z-pooler.c-2.us-east-1.aws.neon.tech'),
-        'PORT': os.getenv('DATABASE_PORT', '5432'),
-        'OPTIONS': {
-            'sslmode': 'require',
-            'channel_binding': 'require',
-        },
-    }
+    'default': dj_database_url.parse(
+        DATABASE_URL,
+        conn_max_age=600,
+        ssl_require=True
+    )
 }
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
